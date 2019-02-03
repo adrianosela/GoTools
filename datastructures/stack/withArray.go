@@ -48,5 +48,5 @@ func (s *ArrStack) Pop() interface{} {
 }
 
 func (s *ArrStack) isFull() bool {
-	return (s.top == s.size)
+	return (s.top == s.size-1)
 }
