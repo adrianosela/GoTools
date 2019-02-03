@@ -3,36 +3,33 @@ package queue
 import "github.com/adrianosela/GoTools/datastructures/linkedlist"
 
 // LLQueue is the linked-list implementation of a queue
-type LLQueue struct {
-	Front *linkedlist.Node
-	Back  *linkedlist.Node
-}
+type LLQueue linkedlist.LList
 
 // NewLLQueue starts a new queue with the data of the first node
 func NewLLQueue(data interface{}) *LLQueue {
 	this := &LLQueue{
-		Front: linkedlist.NewNode(data),
+		Head: linkedlist.NewNode(data),
 	}
-	this.Back = this.Front
+	this.Tail = this.Head
 	return this
 }
 
 // Enqueue puts an item at the back of the queue
 // Constant runtime O(1)
 func (q *LLQueue) Enqueue(data interface{}) {
-	q.Back.Next = &linkedlist.Node{
+	q.Tail.Next = &linkedlist.Node{
 		Data: data,
 	}
-	q.Back = q.Back.Next
+	q.Tail = q.Tail.Next
 }
 
 // Dequeue removes the item at the front of the queue
 // Constant runtime O(1)
 func (q *LLQueue) Dequeue() interface{} {
-	rmed := q.Front.Data
-	q.Front = q.Front.Next
+	rmed := q.Head.Data
+	q.Head = q.Head.Next
 	// in other languages you might have to delete the node associated
-	// with the old "front" node, however golang has a garbage collector
+	// with the old "head" node, however golang has a garbage collector
 	// which wipes pointer-less memory from the heap
 	return rmed
 }
