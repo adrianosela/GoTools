@@ -14,6 +14,11 @@ type PNode struct {
 	Prev *PNode
 }
 
+// NewNode is the constructor for the generic node object
+func NewNode(data interface{}) *Node {
+	return &Node{Data: data}
+}
+
 // WalkForward moves k steps along the next edge of nodes in a list
 func (n *Node) WalkForward(k int) (*Node, error) {
 	for i := 0; i < k; i++ {
