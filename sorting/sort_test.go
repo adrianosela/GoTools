@@ -1,6 +1,7 @@
 package sort
 
 import (
+	"fmt"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -8,7 +9,6 @@ import (
 
 func TestSort(t *testing.T) {
 	Convey("Testing Sorting Functions", t, func() {
-		// Tests will be ordering the following arrays:
 		tests := []struct {
 			name       string
 			disordered []int
@@ -45,7 +45,9 @@ func TestSort(t *testing.T) {
 				tmp := make([]int, len(ts.disordered))
 				copy(tmp, ts.disordered)
 				MergeSort(tmp)
-				So(tmp, ShouldResemble, ts.ordered)
+				Convey(ts.name, func() {
+					So(tmp, ShouldResemble, ts.ordered)
+				})
 			}
 		})
 		Convey("Test InsertionSort", func() {
@@ -53,7 +55,9 @@ func TestSort(t *testing.T) {
 				tmp := make([]int, len(ts.disordered))
 				copy(tmp, ts.disordered)
 				InsertionSort(tmp)
-				So(tmp, ShouldResemble, ts.ordered)
+				Convey(ts.name, func() {
+					So(tmp, ShouldResemble, ts.ordered)
+				})
 			}
 		})
 		Convey("Test SelectionSort", func() {
@@ -61,8 +65,57 @@ func TestSort(t *testing.T) {
 				tmp := make([]int, len(ts.disordered))
 				copy(tmp, ts.disordered)
 				SelectionSort(tmp)
-				So(tmp, ShouldResemble, ts.ordered)
+				Convey(ts.name, func() {
+					So(tmp, ShouldResemble, ts.ordered)
+				})
 			}
 		})
+		// Convey("RuntimeAnalysys", func() {
+		// 	for _, ts := range tests {
+		// 		tmp := make([]int, len(ts.disordered))
+		// 		copy(tmp, ts.disordered)
+		// 		runAlgorithmRuntimeTest(tmp)
+		// 	}
+		// })
 	})
+}
+
+func runAlgorithmRuntimeTest(arr []int) {
+	ms, ss, is := make([]int, len(arr)), make([]int, len(arr)), make([]int, len(arr))
+	copy(ms, arr)
+	copy(ss, arr)
+	copy(is, arr)
+
+	msDone := make(chan bool)
+	ssDone := make(chan bool)
+	isDone := make(chan bool)
+
+	go func() {
+		MergeSort(ms)
+		msDone <- true
+	}()
+	go func() {
+		SelectionSort(ss)
+		ssDone <- true
+	}()
+	go func() {
+		InsertionSort(is)
+		isDone <- true
+	}()
+
+	done := 0
+	for done != 3 {
+		select {
+		case _ = <-msDone:
+			done++
+			fmt.Println("MergeSort done")
+		case _ = <-ssDone:
+			done++
+			fmt.Println("InsertionSort done")
+		case _ = <-isDone:
+			done++
+			fmt.Println("SelectionSort done")
+		}
+	}
+
 }
