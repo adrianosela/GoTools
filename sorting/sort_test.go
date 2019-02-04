@@ -71,11 +71,8 @@ func TestSort(t *testing.T) {
 			}
 		})
 		// Convey("RuntimeAnalysys", func() {
-		// 	for _, ts := range tests {
-		// 		tmp := make([]int, len(ts.disordered))
-		// 		copy(tmp, ts.disordered)
-		// 		runAlgorithmRuntimeTest(tmp)
-		// 	}
+		// 	largeArr := make([]int, 50)
+		// 	runAlgorithmRuntimeTest(largeArr)
 		// })
 	})
 }
