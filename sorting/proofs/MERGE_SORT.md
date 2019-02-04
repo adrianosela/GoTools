@@ -36,8 +36,14 @@ func MergeSort(arr []int) {
 }
 ```
 
-##### Proof By Induction:
-// TODO
+##### Proof By Induction (on n):
+* **Theorem:** The ```msort()``` function sorts arr[lo..hi] in ascending order
+
+* **Proof:**
+	* **BASE CASE:** If ```msort()``` runs for an array with of size = 1, then lo = hi and the function returns. The array only contains one element and thus it is sorted.
+	* **INDUCTIVE HYPOTHESIS:** Assume ```msort()``` sorts any arbitrary array smaller than n i.e. len(arr) < n
+	* **INDUCTIVE STEP:** By the inductive hypothesis, ```msort(a, lo, mid)``` sorts, and ```msort(a, mid+1, hi)``` sorts. Then ```merge()``` takes two sorted pieces of the array and merges them into sorted order (by the correctness of ```merge()```)
+	* **TERMINATION:** so arr[0..n-1] is sorted by calling ```msort(arr, 0, len(arr)-1)``` for any array arr
 
 ##### Runtime Complexity Analysis:
 
