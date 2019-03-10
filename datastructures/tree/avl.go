@@ -22,7 +22,7 @@ func isBalanced(n *Node) bool {
 
 // updateHeight recursively computes and returns the height at node n
 func updateHeight(n *Node) int {
-	if (n.Right == nil && n.Left == nil) || n == nil {
+	if n == nil || (n.Right == nil && n.Left == nil) {
 		return 0
 	}
 	n.Height = 1 + ints.Max(updateHeight(n.Left), updateHeight(n.Right))
