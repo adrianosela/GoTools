@@ -5,7 +5,7 @@ import "github.com/adrianosela/GoTools/primitives/ints"
 // isBalanced returns whether a node is balanced
 func isBalanced(n *AVLNode) bool {
 	// a leaf is balanced
-	if n.Left == nil && n.Right == nil {
+	if n == nil || (n.Left == nil && n.Right == nil) {
 		return true
 	}
 	// if one of the two is nil, other must have Height
