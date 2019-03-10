@@ -2,7 +2,7 @@ package tree
 
 import "github.com/adrianosela/GoTools/primitives/ints"
 
-// isBalanced returns whether a subtree is balanced
+// isBalanced returns whether a node is balanced
 func isBalanced(n *AVLNode) bool {
 	// a leaf is balanced
 	if n.Left == nil && n.Right == nil {
@@ -16,8 +16,9 @@ func isBalanced(n *AVLNode) bool {
 	if n.Left == nil && n.Right != nil {
 		return n.Right.Height <= 1
 	}
-	// if neither is nil, then must compute recursively
-	return (isBalanced(n.Right) && isBalanced(n.Left))
+	// otherwise the absolute value of the difference in subtree heights
+	// must be at most 1
+	return ints.Abs(n.Left.Height-n.Right.Height) <= 1
 }
 
 // updateHeight recursively computes and returns the height at node n
