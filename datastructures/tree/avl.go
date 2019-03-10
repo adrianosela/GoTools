@@ -39,6 +39,7 @@ func rotateLeft(a *Node) {
 	*a = *b // fixme this might not be correct
 }
 
+// rotateLeft performs a right roation on a node
 func rotateRight(b *Node) {
 	a := b.Left
 	b.Left = a.Right
@@ -48,11 +49,15 @@ func rotateRight(b *Node) {
 	*b = *a // fixme this might not be correct
 }
 
+// rotateLeftRight performs a left roation on a node's left node, and then
+// a right notation on the node itself
 func rotateLeftRight(n *Node) {
 	rotateLeft(n.Left)
 	rotateRight(n)
 }
 
+// rotateRightLeft performs a right roation on a node's right node, and then
+// a left notation on the node itself
 func rotateRightLeft(n *Node) {
 	rotateRight(n.Right)
 	rotateLeft(n)
