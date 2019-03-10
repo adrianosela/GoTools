@@ -3,7 +3,7 @@ package tree
 import "github.com/adrianosela/GoTools/primitives/ints"
 
 // isBalanced returns whether a subtree is balanced
-func isBalanced(n *Node) bool {
+func isBalanced(n *AVLNode) bool {
 	// a leaf is balanced
 	if n.Left == nil && n.Right == nil {
 		return true
@@ -21,7 +21,7 @@ func isBalanced(n *Node) bool {
 }
 
 // updateHeight recursively computes and returns the height at node n
-func updateHeight(n *Node) int {
+func updateHeight(n *AVLNode) int {
 	if n == nil || (n.Right == nil && n.Left == nil) {
 		return 0
 	}
@@ -30,7 +30,7 @@ func updateHeight(n *Node) int {
 }
 
 // rotateLeft performs a left roation on a node
-func rotateLeft(a *Node) {
+func rotateLeft(a *AVLNode) {
 	b := a.Right
 	a.Right = b.Left
 	b.Left = a
@@ -40,7 +40,7 @@ func rotateLeft(a *Node) {
 }
 
 // rotateLeft performs a right roation on a node
-func rotateRight(b *Node) {
+func rotateRight(b *AVLNode) {
 	a := b.Left
 	b.Left = a.Right
 	a.Right = b
@@ -51,14 +51,14 @@ func rotateRight(b *Node) {
 
 // rotateLeftRight performs a left roation on a node's left node, and then
 // a right notation on the node itself
-func rotateLeftRight(n *Node) {
+func rotateLeftRight(n *AVLNode) {
 	rotateLeft(n.Left)
 	rotateRight(n)
 }
 
 // rotateRightLeft performs a right roation on a node's right node, and then
 // a left notation on the node itself
-func rotateRightLeft(n *Node) {
+func rotateRightLeft(n *AVLNode) {
 	rotateRight(n.Right)
 	rotateLeft(n)
 }

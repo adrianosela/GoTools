@@ -1,10 +1,16 @@
 package tree
 
 // Node is a generic "node" e.g. for a binary tree
-// height included for AVL tree implementations
 type Node struct {
 	Data  interface{}
-	Height int
 	Left  *Node
 	Right *Node
+}
+
+// AVLNode is a node for an AVL tree implementation
+type AVLNode struct {
+	Data   interface{}
+	Left   *AVLNode
+	Right  *AVLNode
+	Height int
 }
