@@ -13,6 +13,29 @@ type AHeap struct {
 	size      int
 }
 
+// NewHeap returns a new heap
+// A heap can be built from an array in 3 methods:
+// - Sort the array i.e. sort.Slice(arr, isSmallerFunc) ==> RUNTIME Θ(n*log(n))
+// - for (i:=2; i <= size; i ++) heapifyUp(i)           ==> RUNTIME Θ(n*log(n))
+// - for (i:=size/2; i>0; i--) heapifyDown(i)           ==> RUNTIME Θ(n)
+// We will be using the third and most efficient way. Why is it Θ(n)?
+// heapifyDown can only take one path down and will be ran n/2 times
+// whereas heapifyUp will happen for every leaf and thus is ran n times
+func NewHeap(arr []interface{}, isSmallerFunc func(int, int) bool) *AHeap {
+	h := &AHeap{
+		arr:       arr,
+		isSmaller: isSmallerFunc,
+		size:      len(arr),
+	}
+	// leaves always respect the max or min heap property
+	// and so we only have to heapify down all nodes which are on the second
+	// level from the bottom
+	for i := h.size / 2; i > 0; i-- {
+		h.heapifyDown(i)
+	}
+	return h
+}
+
 // Insert inserts an item into the heap
 func (h *AHeap) Insert(x interface{}) {
 	if h.size == len(h.arr) {
@@ -33,6 +56,11 @@ func (h *AHeap) RemoveMin() interface{} {
 	h.size--
 	h.heapifyDown(1)
 	return min
+}
+
+// IntsIsSmallerFunc is an example isSmallerFunc for integers
+func IntsIsSmallerFunc(a, b int) bool {
+	return a < b
 }
 
 // heapifyDown moves the node at index i down to its appropriate spot
