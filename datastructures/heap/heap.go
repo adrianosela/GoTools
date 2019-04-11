@@ -77,7 +77,7 @@ func (h *AHeap) heapifyDown(i int) {
 	if smallest != i {
 		h.swap(i, smallest)
 		// i is now at the index which used to be the smallest's
-		h.heapifyUp(smallest)
+		h.heapifyDown(smallest)
 	}
 }
 
