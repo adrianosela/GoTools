@@ -1,3 +1,3 @@
 ## GoTools! - Structures, Sorting Algs., & Primitives
 
-Common functions for building data structures in go 
+Just a bunch of useful stuff that I wanted to write once and never again.
